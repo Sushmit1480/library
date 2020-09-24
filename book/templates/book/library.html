@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Books App</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<!--<link rel = "stylesheets" href="https://stackpath.bootstapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity = "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin = "anonymous">-->
+
+</head>
+<body style="background-color : #4DB6AC;">
+<nav class = "navbar navbar-light" style="background-color:#FF0033;">
+	<a href="{% url 'index' %}" class="navbar-brand" style="background-color:#FFCC33; color:#000000; border-width:10px; border-color:#FFCC33; border-style:solid; border-spacing: 30px; border-radius:5px;">Library App</a>
+	<a href="{% url 'admin:index' %}" class = 'navbar-link btn-lg' style="background-color:#FFCC33; color:#000000;">Admin</a>
+	<a href="{% url 'upload-book' %}" class = 'navbar-link btn-lg' style="background-color:#FFCC33; color:#000000;">Upload Books</a>
+	<a href="{% url 'student_index' %}" class = 'navbar-link btn-lg' style="background-color:#FFCC33; color:#000000;">Students List</a>
+	<a href="{% url 'upload-student' %}" class = 'navbar-link btn-lg' style="background-color:#FFCC33; color:#000000;">Upload Student</a>
+</nav>
+<br>
+<center>
+	<h2><center>LIST OF THE BOOKS</center></h2>
+	{% block content %}
+    {% if shelf %}
+   <table class="table table-hover" id="table_id">
+    <thead class='thead-dark'>
+    <th scope="col">NAME</th>
+    <th scope="col">AUTHOR</th>
+    <th scope="col">ISBN</th>
+	<th scope="col">TOTAL COPIES</th>
+    <th scope="col">COPIES REMAIN</th>
+	<th scope="col">AVAILABLE</th>
+	<th scope="col">LANGUAGE</th>
+    <th scope="col">EDIT</th>
+    <th scope="col">DELETE</th>
+    </thead>
+    <tbody class="text-black" class="text-align:center" >
+      {% for book in shelf %}
+        <tr>
+            <td>{{book.name}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.isbn}}</td>
+            <td>{{book.total_copies}}</td>
+			<td>{{book.remaining}}</td>
+            <td>{{book.available}}</td>
+            <td>{{book.language}}</td>
+			<td align="center"><button><a href="update/{{book.id}}" class="btn btn-warning" id = '{{book.id}}'>edit</a></button></td>
+			<td align="center"><button><a href="delete/{{book.id}}" class="btn btn-warning" id = '{{book.id}}'>delete</a></button></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+       <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+
+<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
+    {% else %}
+      <p class=" bg bg-white">There are no books.</p>
+    {% endif %}
+{% endblock %}
+</center>
+
+</body>
+</html>

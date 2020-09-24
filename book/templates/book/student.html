@@ -1,0 +1,55 @@
+{% extends 'book/library.html' %}
+	
+	<center>
+	<h2><center>LIST OF THE STUDENTS</center></h2>
+	{% block content %}
+    {% if bench %}
+	<table class="table table-hover" id="table_id">
+    <thead class='thead-dark'>
+    <th scope="col">STUDENT NAME</th>
+    <th scope="col">BOOK ASSIGN</th>
+	<th scope="col">REGISTRATION NO.</th>
+	<th scope="col">BRANCH</th>
+    <th scope="col">ASSIGN DATE</th>
+	<th scope="col">DUE DATE</th>
+    <th scope="col">FINE</th>
+    <th scope="col">EDIT</th>
+    <th scope="col">DELETE</th>
+    </thead>
+    <tbody class="text-black" class="text-align:center" >
+      {% for student in bench %}
+        <tr>
+            <td>{{student.student_name}}</td>
+            <td>{{student.book_assign}}</td>
+			<td>{{student.reg_no}}</td>
+			<td>{{student.branch}}</td>
+            <td>{{student.assign_date}}</td>
+            <td>{{student.due_date}}</td>
+            <td>{{student.fine}}</td>
+			<td align="center"><button><a href="update_student/{{student.id}}" class="btn btn-warning" id = '{{student.id}}'>edit</a></button></td>
+			<td align="center"><button><a href="delete_student/{{student.id}}" class="btn btn-warning" id = '{{student.id}}'>delete</a></button></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+       <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+
+<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+<script>
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
+    {% else %}
+      <p class=" bg bg-white">There are no Student.</p>
+    {% endif %}
+</center>
+{% endblock %}
